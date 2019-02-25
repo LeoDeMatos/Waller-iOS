@@ -1,6 +1,6 @@
 # Waller  Readme
 
-[![Platform](https://img.shields.io/badge/platform-iOS-red.svg)
+![Platform](https://img.shields.io/badge/platform-iOS-red.svg)
 ![Swift](https://img.shields.io/badge/language-Swift%205.0-orange.svg)
 
 # \[ 🚧 Work in progress 🚧 \] Waller 2.0 
