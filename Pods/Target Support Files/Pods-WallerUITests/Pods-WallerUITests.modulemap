@@ -1,0 +1,6 @@
+framework module Pods_WallerUITests {
+  umbrella header "Pods-WallerUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
