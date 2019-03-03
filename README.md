@@ -1,2 +1,2 @@
 # Waller-iOS
-iOS Version os Waller written in Swift
+iOS Version of Waller written in Swift
