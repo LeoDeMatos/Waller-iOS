@@ -13,7 +13,7 @@ import Mapper
 import AVFoundation
 import Cartography
 
-class WLRMainWallViewController: UIViewController {
+class MainWallViewController: UIViewController {
     
     // MARK: - Constructors
     
@@ -26,6 +26,7 @@ class WLRMainWallViewController: UIViewController {
     }
 
     // MARK: - Views
+    
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
@@ -58,9 +59,9 @@ class WLRMainWallViewController: UIViewController {
         removeShadowImage(under: navigationController?.navigationBar)
     }
     
+    // MARK: - View Lifecicle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureView()
         configureViewModel()
         
@@ -80,19 +81,13 @@ class WLRMainWallViewController: UIViewController {
             collection.bottom == v.bottom
         }
         
+        wallCollectionView.showsVerticalScrollIndicator = false
         wallCollectionView.register(WallCollectionViewCell.nib,
                                     forCellWithReuseIdentifier: WallCollectionViewCell.identifier)
-        
         wallCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         wallCollectionView.delegate = self
         wallCollectionView.dataSource = self
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .roseRed
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.wallCollectionView.refreshControl = refreshControl
-        self.wallCollectionView.refreshControl?.beginRefreshing()
         
         let backItem = UIBarButtonItem() 
         backItem.title = ""
@@ -107,7 +102,7 @@ class WLRMainWallViewController: UIViewController {
         navBar.addSubview(userImageView)
         constrain(navBar, userImageView) {nb, img in
             img.right == nb.right - 16
-            img.bottom == nb.bottom
+            img.bottom == nb.bottom - 10
             img.height == 40
             img.width == 40
         }
@@ -121,8 +116,8 @@ class WLRMainWallViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination
-        if vc is WLRPhotoDetailViewController {
-            (vc as! WLRPhotoDetailViewController).wallerPost = sender as? WLRPhoto
+        if vc is PhotoDetailViewController {
+            (vc as! PhotoDetailViewController).wallerPost = sender as? WLRPhoto
         }
     }
     
@@ -135,25 +130,44 @@ class WLRMainWallViewController: UIViewController {
     }
 
     private func bindViewModel() {
-        viewModel.state.asDriver().drive(onNext: { (state) in
+        viewModel.state.asDriver().drive(onNext: { [weak self] (state) in
             switch state {
-            case .done:
-                let  staggeredLayout = self.wallCollectionView.collectionViewLayout as! StaggeredCollectionViewLayout
-                staggeredLayout.invalidateLayout()
-                self.wallCollectionView.invalidateIntrinsicContentSize()
-//                self.wallCollectionView.reloadSections([0])
-                self.wallCollectionView.reloadData()
-                self.wallCollectionView.refreshControl?.endRefreshing()
+            case .done,
+                 .newPage:
+                let  staggeredLayout = self?.wallCollectionView.collectionViewLayout as! StaggeredCollectionViewLayout
+                staggeredLayout.invalidateCachedAttr()
+                self?.wallCollectionView.reloadData()
+                
             default:
-                self.wallCollectionView.reloadData()
+                self?.wallCollectionView.reloadData()
             }
         }).disposed(by: disposeBag)
     }
 }
 
 // MARK: - CollectionView Delegate and DataSource
-extension WLRMainWallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
+extension MainWallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let reachTarget = Int(self.view.frame.height * 0.10) * -1
+        let contentScrollY = Int(scrollView.contentOffset.y)
+        if contentScrollY == reachTarget {
+            AudioServicesPlaySystemSound(SystemSoundID(1519))
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }
+        } else if Int(reachTarget * 2) ==  contentScrollY {
+            AudioServicesPlaySystemSound(SystemSoundID(1520))
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }
+        } else if contentScrollY > reachTarget {
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -195,13 +209,14 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = WLRPhotoDetailViewController()
+        let viewController = PhotoDetailViewController()
         viewController.wallerPost = viewModel.wallerPostForIndexPath(indexPath: indexPath)
-        self.navigationController?.pushViewController(viewController, animated: true)
+        AudioServicesPlaySystemSound(SystemSoundID(1521))
+//        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
+extension MainWallViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            commit viewControllerToCommit: UIViewController) {
@@ -215,7 +230,7 @@ extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = wallCollectionView.indexPathForItem(at: location),
         let cell = wallCollectionView.cellForItem(at: indexPath) else { return nil }
         
-                let previewViewController = WLRPhotoDetailViewController()
+                let previewViewController = PhotoDetailViewController()
         
                 previewViewController.wallerPost = self.viewModel.wallerPostForIndexPath(indexPath: indexPath)
         
@@ -232,7 +247,7 @@ extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
 
 // MARK: - Staggered CollectionView Delegate
 
-extension WLRMainWallViewController: StaggeredCollectionViewLayoutDelegate {
+extension MainWallViewController: StaggeredCollectionViewLayoutDelegate {
     func heightForItemAt(indexPath: IndexPath) -> CGFloat {
         guard let item = viewModel
             .wallerPostForIndexPath(indexPath: indexPath) else { return 0.0 }

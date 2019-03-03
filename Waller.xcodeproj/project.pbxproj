@@ -22,7 +22,7 @@
 		C5160EA61EF89DEB0000AEEB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5160EA51EF89DEB0000AEEB /* BaseViewController.swift */; };
 		C5160EA91EF8B0360000AEEB /* SocialStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5160EA71EF8B0360000AEEB /* SocialStatsTableViewCell.swift */; };
 		C5160EAA1EF8B0360000AEEB /* SocialStatsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5160EA81EF8B0360000AEEB /* SocialStatsTableViewCell.xib */; };
-		C530D26E1EE2FFCD007E64A3 /* WLRPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530D26D1EE2FFCD007E64A3 /* WLRPhotoDetailViewController.swift */; };
+		C530D26E1EE2FFCD007E64A3 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530D26D1EE2FFCD007E64A3 /* PhotoDetailViewController.swift */; };
 		C55BD23E1EE424E70054C59F /* WallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BD23D1EE424E70054C59F /* WallView.swift */; };
 		C55BD2401EE425290054C59F /* WLRMainWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BD23F1EE425290054C59F /* WLRMainWallViewModel.swift */; };
 		C58A80B71ED9029A00F29993 /* UnplashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A80B61ED9029A00F29993 /* UnplashService.swift */; };
@@ -95,7 +95,7 @@
 		C5160EA51EF89DEB0000AEEB /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C5160EA71EF8B0360000AEEB /* SocialStatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialStatsTableViewCell.swift; sourceTree = "<group>"; };
 		C5160EA81EF8B0360000AEEB /* SocialStatsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialStatsTableViewCell.xib; sourceTree = "<group>"; };
-		C530D26D1EE2FFCD007E64A3 /* WLRPhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLRPhotoDetailViewController.swift; sourceTree = "<group>"; };
+		C530D26D1EE2FFCD007E64A3 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		C55BD23D1EE424E70054C59F /* WallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallView.swift; sourceTree = "<group>"; };
 		C55BD23F1EE425290054C59F /* WLRMainWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLRMainWallViewModel.swift; sourceTree = "<group>"; };
 		C58A80B61ED9029A00F29993 /* UnplashService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnplashService.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 			name = ProjectWide;
 			sourceTree = "<group>";
 		};
-		A745F31520E1C6D40057E12A /* MainWall */ = {
+		A745F31520E1C6D40057E12A /* Photos */ = {
 			isa = PBXGroup;
 			children = (
 				A745F31820E1C6E90057E12A /* ViewModel */,
@@ -206,12 +206,13 @@
 				A745F31620E1C6DF0057E12A /* View */,
 				A7A1D06F21438D6700436BDB /* WallCoordinator.swift */,
 			);
-			name = MainWall;
+			name = Photos;
 			sourceTree = "<group>";
 		};
 		A745F31620E1C6DF0057E12A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C530D26D1EE2FFCD007E64A3 /* PhotoDetailViewController.swift */,
 				C5C8EA501EC3CBB800350046 /* WLRMainWallViewController.swift */,
 			);
 			name = View;
@@ -252,7 +253,6 @@
 		C515D5A31EEDBBB4004403A7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C530D26D1EE2FFCD007E64A3 /* WLRPhotoDetailViewController.swift */,
 				C5C8BE481EE45C8200313778 /* CameraViewController.swift */,
 				C5A0EA8A1EF737D300CA1C16 /* WLRUserProfileViewController.swift */,
 				C5160EA51EF89DEB0000AEEB /* BaseViewController.swift */,
@@ -260,14 +260,14 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
-		C55BD23B1EE424CC0054C59F /* Features */ = {
+		C55BD23B1EE424CC0054C59F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				A745F31520E1C6D40057E12A /* MainWall */,
+				A745F31520E1C6D40057E12A /* Photos */,
 				C55BD23C1EE424D20054C59F /* View */,
 				C5A0EA8C1EF742F000CA1C16 /* UserProfileViewModel.swift */,
 			);
-			name = Features;
+			name = Modules;
 			sourceTree = "<group>";
 		};
 		C55BD23C1EE424D20054C59F /* View */ = {
@@ -317,7 +317,7 @@
 				A7B8E62E20FA668D00F0418F /* Support */,
 				C5F4E6C51EF5A0BE0076D7CA /* Extensions */,
 				C5CA7E211EECB5BB00C8D82A /* Resources */,
-				C55BD23B1EE424CC0054C59F /* Features */,
+				C55BD23B1EE424CC0054C59F /* Modules */,
 				C5C8EA841EC3D2C600350046 /* Model */,
 				C5C8EA7C1EC3CBF500350046 /* ViewOld */,
 				C5C8EA4E1EC3CBB800350046 /* AppDelegate.swift */,
@@ -692,7 +692,7 @@
 				A745F31A20E1C7AD0057E12A /* BaseViewModel.swift in Sources */,
 				C5A0EA8D1EF742F000CA1C16 /* UserProfileViewModel.swift in Sources */,
 				A7CBC452203E3FE500D3E4B5 /* UIViewController+Identifier.swift in Sources */,
-				C530D26E1EE2FFCD007E64A3 /* WLRPhotoDetailViewController.swift in Sources */,
+				C530D26E1EE2FFCD007E64A3 /* PhotoDetailViewController.swift in Sources */,
 				A7B8E63220FA66F600F0418F /* ApplicationCoordinator.swift in Sources */,
 				A752A37B2079B03100F4929C /* WLRUserDataManager.swift in Sources */,
 				A752A37D2079B15800F4929C /* WLRUser.swift in Sources */,

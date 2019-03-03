@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Waller
 
 class WallerUITests: XCTestCase {
         
@@ -31,6 +32,12 @@ class WallerUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+    
+    func testMainWallViewModel() {
+        let viewModel = WLRMainWallViewModel()
+        viewModel.fetechPhotos()
+        
     }
     
 }

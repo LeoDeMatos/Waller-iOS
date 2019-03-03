@@ -27,13 +27,16 @@ class ApplicationCoordinator: Coordinator {
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = true
         }
+        
+        window.layer.cornerRadius = 5
+        window.layer.masksToBounds = true
     }
     
     func start() {
         self.window.rootViewController = rootViewController
         self.window.makeKeyAndVisible()
     
-        let mainWallViewController = WLRMainWallViewController()
+        let mainWallViewController = MainWallViewController()
         rootViewController.pushViewController(mainWallViewController, animated: false)
     }
 }

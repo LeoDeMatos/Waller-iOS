@@ -18,18 +18,18 @@ extension UIImageView {
         self.layer.masksToBounds = true
     }
     
-    func load(url: String){
+    func load(url: String) {
     
         if let resource = URL(string: url) {
-            self.kf.setImage(with: resource, options: [.transition(ImageTransition.fade(1))])
+            self.kf.setImage(with: resource, options: [.transition(ImageTransition.flipFromBottom(1))])
         }
     }
     
     func load(url: WallURL) {
-        if let image = url.small, let url = URL(string: image){
+        if let image = url.small, let url = URL(string: image) {
             let resource = ImageResource(downloadURL: url, cacheKey: image)
             self.kf.setImage(with: resource,
-                             options: [.transition(ImageTransition.fade(1))])
+                             options: [.transition(ImageTransition.flipFromBottom(1))])
         }
     }
     
@@ -37,9 +37,9 @@ extension UIImageView {
         if let image = urls.small, let high = urls.full, let url = URL(string: high) {
             let resource = ImageResource(downloadURL: url, cacheKey: image)
             self.kf.setImage(with: resource,
-                             options: [.transition(ImageTransition.fade(1))])
+                             options: [.transition(ImageTransition.flipFromBottom(1))])
             self.kf.setImage(with: URL(string: urls.full),
-                             options: [.transition(ImageTransition.fade(1))])
+                             options: [.transition(ImageTransition.flipFromBottom(1))])
         }
     }
 }
