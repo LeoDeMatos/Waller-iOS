@@ -9,9 +9,9 @@
 import Foundation
 import Mapper
 
-struct WLRPhoto: Mappable {
+struct Photo: Mappable {
     let urls: WallURL
-    let user: WLRUser?
+    let user: User?
     let height: Int
     let width: Int
     

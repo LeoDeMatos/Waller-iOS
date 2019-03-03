@@ -1,5 +1,5 @@
 //
-//  WLRUser.swift
+//  User.swift
 //  Waller
 //
 //  Created by Leonardo de Matos on 07/04/18.
@@ -9,7 +9,7 @@
 import Foundation
 import Mapper
 
-struct WLRUser: Mappable{
+struct User: Mappable{
     let id: String
     let username: String
     let name: String

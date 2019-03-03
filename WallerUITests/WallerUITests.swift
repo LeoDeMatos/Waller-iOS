@@ -35,7 +35,7 @@ class WallerUITests: XCTestCase {
     }
     
     func testMainWallViewModel() {
-        let viewModel = WLRMainWallViewModel()
+        let viewModel = WallViewModel()
         viewModel.fetechPhotos()
         
     }

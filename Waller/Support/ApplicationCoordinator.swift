@@ -8,11 +8,15 @@
 
 import Foundation
 import UIKit
+import Moya
+import RxSwift
+import RxCocoa
 
 class ApplicationCoordinator: Coordinator {
     
     let window: UIWindow
     let rootViewController: UINavigationController
+    let unplashService = MoyaProvider<UnplashService>(endpointClosure: endpointClosure)
     
     init(window: UIWindow) {
         self.window = window
@@ -35,8 +39,14 @@ class ApplicationCoordinator: Coordinator {
     func start() {
         self.window.rootViewController = rootViewController
         self.window.makeKeyAndVisible()
+        showWallViewController()
+    }
     
-        let mainWallViewController = MainWallViewController()
-        rootViewController.pushViewController(mainWallViewController, animated: false)
+    private func showWallViewController() {
+        let wallViewController = WallViewController()
+        let dataManager = PhotoDataManager(unplashService: unplashService)
+        let viewModel = WallViewModel(dataManager: dataManager)
+        wallViewController.viewModel = viewModel
+        rootViewController.pushViewController(wallViewController, animated: false)
     }
 }

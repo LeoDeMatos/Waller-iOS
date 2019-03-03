@@ -35,7 +35,7 @@ class PhotoDetailViewController: UIViewController {
         return visualEffectView
     }()
     
-    var wallerPost: WLRPhoto?
+    var wallerPost: Photo?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

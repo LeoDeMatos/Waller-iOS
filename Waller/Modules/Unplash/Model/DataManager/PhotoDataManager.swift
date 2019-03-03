@@ -15,19 +15,25 @@ import Moya_ModelMapper
 
 class PhotoDataManager {
     
-    var photos: [WLRPhoto]?
+    private let unplashService: MoyaProvider<UnplashService>
+    
+    init(unplashService: MoyaProvider<UnplashService>) {
+        self.unplashService = unplashService
+    }
+    
+    var photos: [Photo]?
     var shots: [Shot]?
     
     func fetchPhotos(page: Int) -> Driver<Bool> {
         return unplashService.rx.request(.Photos(page: page, perPage: 30)).map { response in
-            self.photos = try response.map(to: [WLRPhoto].self)
+            self.photos = try response.map(to: [Photo].self)
             return true
             }.asDriver(onErrorJustReturn: false).debug()
     }
     
-    func fetchNextPhotos(page: Int) -> Driver<[WLRPhoto]> {
+    func fetchNextPhotos(page: Int) -> Driver<[Photo]> {
         return unplashService.rx.request(.Photos(page: page, perPage: 30)).map { response in
-            let newPhotos = try response.map(to: [WLRPhoto].self)
+            let newPhotos = try response.map(to: [Photo].self)
             
             if self.photos == nil {
                 self.photos = []

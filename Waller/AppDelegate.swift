@@ -7,11 +7,6 @@
 //
 
 import UIKit
-import Moya
-import RxSwift
-import RxCocoa
-
-let unplashService = MoyaProvider<UnplashService>(endpointClosure: endpointClosure)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,21 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureCoordinator() {
         let window = UIWindow(frame: UIScreen.main.bounds)
         applicationCoordinator = ApplicationCoordinator(window: window)
-        
         self.window = window
-        
     }
-
-
-    // Trash can
-    /*
-     UINavigationBar.appearance().isTranslucent = true
-     UINavigationBar.appearance().tintColor = .roseRed
-     
-     if #available(iOS 11.0, *) {
-     UINavigationBar.appearance().largeTitleTextAttributes =
-     [NSAttributedString.Key.foregroundColor: UIColor.black,
-     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30)]
-     }
-     */
 }

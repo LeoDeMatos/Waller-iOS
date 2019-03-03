@@ -21,7 +21,7 @@ class WallCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
     }
 
-    func bind(wallResponse: WLRPhoto) {
+    func bind(wallResponse: Photo) {
         wallImage.load(url: wallResponse.urls)
     }
     
