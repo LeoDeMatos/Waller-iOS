@@ -18,10 +18,11 @@ class WallCollectionViewCell: UICollectionViewCell {
         wallImage.layer.cornerRadius = 15
         wallImage.layer.masksToBounds = true
         backgroundColor = .clear
+        wallImage.backgroundColor = .cyan
         contentView.backgroundColor = .clear
     }
 
-    func bind(wallResponse: WLRPhoto) {
+    func bind(wallResponse: Photo) {
         wallImage.load(url: wallResponse.urls)
     }
     

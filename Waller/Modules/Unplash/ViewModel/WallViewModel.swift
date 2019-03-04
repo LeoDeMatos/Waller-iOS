@@ -12,10 +12,15 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class WLRMainWallViewModel {
+class WallViewModel {
+    
+    private let photoDataManager: PhotoDataManager
+    
+    init(dataManager: PhotoDataManager) {
+        self.photoDataManager = dataManager
+    }
     
     private let disposeBag = DisposeBag()
-    private let photoDataManager = PhotoDataManager()
     private var currentPage = 1
     private var isFetching = false
 
@@ -45,7 +50,7 @@ class WLRMainWallViewModel {
         return photoDataManager.photos?.count ?? 0
     }
     
-    func wallerPostForIndexPath(indexPath: IndexPath) -> WLRPhoto? {
+    func wallerPostForIndexPath(indexPath: IndexPath) -> Photo? {
         if let post = photoDataManager.photos?[indexPath.row] {
             return post
         } else {

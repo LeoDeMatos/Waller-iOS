@@ -13,7 +13,7 @@ import Mapper
 import AVFoundation
 import Cartography
 
-class WLRMainWallViewController: UIViewController {
+class WallViewController: UIViewController {
     
     // MARK: - Constructors
     
@@ -26,6 +26,7 @@ class WLRMainWallViewController: UIViewController {
     }
 
     // MARK: - Views
+    
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
@@ -37,7 +38,7 @@ class WLRMainWallViewController: UIViewController {
     private lazy var wallCollectionView: UICollectionView = {
         let staggeredLayout = StaggeredCollectionViewLayout()
         staggeredLayout.delegate = self
-        staggeredLayout.cellPadding = 5
+        staggeredLayout.cellPadding = 3
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -47,12 +48,12 @@ class WLRMainWallViewController: UIViewController {
         return collectionView
     }()
     
-    var viewModel: WLRMainWallViewModel!
-    private let disposeBag = DisposeBag()
+    // MARK: - Declaration
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
+    private let disposeBag = DisposeBag()
+    var viewModel: WallViewModel!
+    
+    // MARK: - View Lifecicle
     
     override func viewWillAppear(_ animated: Bool) {
         removeShadowImage(under: navigationController?.navigationBar)
@@ -60,54 +61,50 @@ class WLRMainWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureView()
         configureViewModel()
-        
-        if traitCollection.forceTouchCapability == .available {
-            registerForPreviewing(with: self, sourceView: wallCollectionView)
-        }
+        registerForForceTouch()
     }
     
-    fileprivate func configureView() {
-        self.automaticallyAdjustsScrollViewInsets = true
+    // MARK: - View Configuration
     
-         self.view.addSubview(wallCollectionView)
-        constrain(self.view, wallCollectionView) { v, collection in
-            collection.left == v.left
-            collection.right == v.right
-            collection.top == v.top
-            collection.bottom == v.bottom
-        }
-        
-        wallCollectionView.register(WallCollectionViewCell.nib,
-                                    forCellWithReuseIdentifier: WallCollectionViewCell.identifier)
-        
-        wallCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        wallCollectionView.delegate = self
-        wallCollectionView.dataSource = self
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .roseRed
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.wallCollectionView.refreshControl = refreshControl
-        self.wallCollectionView.refreshControl?.beginRefreshing()
+    fileprivate func configureView() {
+        self.view.backgroundColor = .white
+        configureTableView()
         
         let backItem = UIBarButtonItem() 
         backItem.title = ""
         self.navigationItem.backBarButtonItem = backItem
         self.navigationItem.title = "Waller"
         
-        createUserView()
+        configureUserView()
     }
     
-    private func createUserView() {
+    private func configureTableView() {
+        self.automaticallyAdjustsScrollViewInsets = true
+        
+        self.view.addSubview(wallCollectionView)
+        constrain(self.view, wallCollectionView) { v, collection in
+            collection.left == v.left + 3
+            collection.right == v.right - 3
+            collection.top == v.top
+            collection.bottom == v.bottom
+        }
+        
+        wallCollectionView.showsVerticalScrollIndicator = false
+        wallCollectionView.register(WallCollectionViewCell.nib,
+                                    forCellWithReuseIdentifier: WallCollectionViewCell.identifier)
+        wallCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        wallCollectionView.delegate = self
+        wallCollectionView.dataSource = self
+    }
+    
+    private func configureUserView() {
         guard let navBar = self.navigationController?.navigationBar else { return }
         navBar.addSubview(userImageView)
         constrain(navBar, userImageView) {nb, img in
             img.right == nb.right - 16
-            img.bottom == nb.bottom
+            img.bottom == nb.bottom - 10
             img.height == 40
             img.width == 40
         }
@@ -115,45 +112,70 @@ class WLRMainWallViewController: UIViewController {
         userImageView.load(url: "https://yt3.ggpht.com/-JhG7CFvSUGo/AAAAAAAAAAI/AAAAAAAAAAA/lFU2rOckxfU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg")
     }
     
-    @objc fileprivate func refresh() {
-        self.viewModel?.fetechPhotos()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination
-        if vc is WLRPhotoDetailViewController {
-            (vc as! WLRPhotoDetailViewController).wallerPost = sender as? WLRPhoto
-        }
-    }
-    
     // MARK: - ViewModel Bindings
     
     private func configureViewModel() {
-        viewModel = WLRMainWallViewModel()
         bindViewModel()
         viewModel.fetechPhotos()
     }
 
     private func bindViewModel() {
-        viewModel.state.asDriver().drive(onNext: { (state) in
+        viewModel.state.asDriver().drive(onNext: { [weak self] (state) in
             switch state {
-            case .done:
-                let  staggeredLayout = self.wallCollectionView.collectionViewLayout as! StaggeredCollectionViewLayout
-                staggeredLayout.invalidateLayout()
-                self.wallCollectionView.invalidateIntrinsicContentSize()
-//                self.wallCollectionView.reloadSections([0])
-                self.wallCollectionView.reloadData()
-                self.wallCollectionView.refreshControl?.endRefreshing()
+            case .done,
+                 .newPage:
+                let  staggeredLayout = self?.wallCollectionView.collectionViewLayout as! StaggeredCollectionViewLayout
+                staggeredLayout.invalidateCachedAttr()
+                self?.wallCollectionView.reloadData()
+                
             default:
-                self.wallCollectionView.reloadData()
+                self?.wallCollectionView.reloadData()
             }
         }).disposed(by: disposeBag)
+    }
+    
+    // MARK: - ForceTouch Configuration
+    
+    private func registerForForceTouch() {
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: wallCollectionView)
+        }
+    }
+    
+    // MARK: - PullToReach Configuration
+    
+    private func configureSimpleTemporaryPullToReach(scrolledOffsetY: CGFloat) {
+        let height = self.view.frame.height * -1
+        let firstTreshold = (Int(height * 0.10), Int(height * 0.15))
+        let secondTreshold = (Int(height * 0.15), Int(height * 0.20))
+        let contentScrollY = Int(scrolledOffsetY)
+        
+        if contentScrollY == firstTreshold.0 {
+            AudioServicesPlaySystemSound(SystemSoundID(1519))
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }
+        } else if contentScrollY == secondTreshold.0 || contentScrollY == secondTreshold.1 {
+            AudioServicesPlaySystemSound(SystemSoundID(1520))
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }
+        } else if contentScrollY > firstTreshold.0 {
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.userImageView.transform =   CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
     }
 }
 
 // MARK: - CollectionView Delegate and DataSource
-extension WLRMainWallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
+
+extension WallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       configureSimpleTemporaryPullToReach(scrolledOffsetY: scrollView.contentOffset.y)
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -195,17 +217,18 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = WLRPhotoDetailViewController()
+        let viewController = PhotoDetailViewController()
         viewController.wallerPost = viewModel.wallerPostForIndexPath(indexPath: indexPath)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
+// MARK: - ForceTouch Extension
+
+extension WallViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            commit viewControllerToCommit: UIViewController) {
-        
         self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
     }
     
@@ -215,7 +238,7 @@ extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = wallCollectionView.indexPathForItem(at: location),
         let cell = wallCollectionView.cellForItem(at: indexPath) else { return nil }
         
-                let previewViewController = WLRPhotoDetailViewController()
+                let previewViewController = PhotoDetailViewController()
         
                 previewViewController.wallerPost = self.viewModel.wallerPostForIndexPath(indexPath: indexPath)
         
@@ -232,7 +255,7 @@ extension WLRMainWallViewController: UIViewControllerPreviewingDelegate {
 
 // MARK: - Staggered CollectionView Delegate
 
-extension WLRMainWallViewController: StaggeredCollectionViewLayoutDelegate {
+extension WallViewController: StaggeredCollectionViewLayoutDelegate {
     func heightForItemAt(indexPath: IndexPath) -> CGFloat {
         guard let item = viewModel
             .wallerPostForIndexPath(indexPath: indexPath) else { return 0.0 }

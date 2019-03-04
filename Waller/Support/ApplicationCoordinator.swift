@@ -8,11 +8,15 @@
 
 import Foundation
 import UIKit
+import Moya
+import RxSwift
+import RxCocoa
 
 class ApplicationCoordinator: Coordinator {
     
     let window: UIWindow
     let rootViewController: UINavigationController
+    let unplashService = MoyaProvider<UnplashService>(endpointClosure: endpointClosure)
     
     init(window: UIWindow) {
         self.window = window
@@ -27,13 +31,22 @@ class ApplicationCoordinator: Coordinator {
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = true
         }
+        
+        window.layer.cornerRadius = 5
+        window.layer.masksToBounds = true
     }
     
     func start() {
         self.window.rootViewController = rootViewController
         self.window.makeKeyAndVisible()
+        showWallViewController()
+    }
     
-        let mainWallViewController = WLRMainWallViewController()
-        rootViewController.pushViewController(mainWallViewController, animated: false)
+    private func showWallViewController() {
+        let wallViewController = WallViewController()
+        let dataManager = PhotoDataManager(unplashService: unplashService)
+        let viewModel = WallViewModel(dataManager: dataManager)
+        wallViewController.viewModel = viewModel
+        rootViewController.pushViewController(wallViewController, animated: false)
     }
 }
