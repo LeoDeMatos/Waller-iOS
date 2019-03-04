@@ -16,6 +16,7 @@
 		A758F1AA222C334A00D1072C /* BasaDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A758F1A9222C334A00D1072C /* BasaDataManager.swift */; };
 		A758F1AC222C33AF00D1072C /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A758F1AB222C33AF00D1072C /* Result.swift */; };
 		A7656B752039DAAF00870082 /* UITableView+Identfier+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7656B742039DAAF00870082 /* UITableView+Identfier+Nib.swift */; };
+		A7736A71222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */; };
 		A7A1D07021438D6700436BDB /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1D06F21438D6700436BDB /* WallCoordinator.swift */; };
 		A7B1CD08201FDCFB00539F81 /* UIColor+WallerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */; };
 		A7B8E63020FA66B200F0418F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E62F20FA66B200F0418F /* Coordinator.swift */; };
@@ -74,6 +75,7 @@
 		A758F1A9222C334A00D1072C /* BasaDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasaDataManager.swift; sourceTree = "<group>"; };
 		A758F1AB222C33AF00D1072C /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A7656B742039DAAF00870082 /* UITableView+Identfier+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Identfier+Nib.swift"; sourceTree = "<group>"; };
+		A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewPullToReachController.swift; sourceTree = "<group>"; };
 		A7A1D06F21438D6700436BDB /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
 		A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+WallerColors.swift"; sourceTree = "<group>"; };
 		A7B8E62F20FA66B200F0418F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				A71DB4042210CE080053B4E4 /* StaggeredCollectionViewLayout.swift */,
 				A758F1A9222C334A00D1072C /* BasaDataManager.swift */,
 				A758F1AB222C33AF00D1072C /* Result.swift */,
+				A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */,
 			);
 			path = ProjectWide;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				A7CBC452203E3FE500D3E4B5 /* UIViewController+Identifier.swift in Sources */,
 				C530D26E1EE2FFCD007E64A3 /* PhotoDetailViewController.swift in Sources */,
 				A7B8E63220FA66F600F0418F /* ApplicationCoordinator.swift in Sources */,
+				A7736A71222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift in Sources */,
 				A752A37B2079B03100F4929C /* UserDataManager.swift in Sources */,
 				A758F1AC222C33AF00D1072C /* Result.swift in Sources */,
 				A752A37D2079B15800F4929C /* User.swift in Sources */,

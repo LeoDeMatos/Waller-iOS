@@ -18,6 +18,7 @@ class WallCollectionViewCell: UICollectionViewCell {
         wallImage.layer.cornerRadius = 15
         wallImage.layer.masksToBounds = true
         backgroundColor = .clear
+        wallImage.backgroundColor = .cyan
         contentView.backgroundColor = .clear
     }
 

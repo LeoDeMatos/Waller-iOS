@@ -38,7 +38,7 @@ class WallViewController: UIViewController {
     private lazy var wallCollectionView: UICollectionView = {
         let staggeredLayout = StaggeredCollectionViewLayout()
         staggeredLayout.delegate = self
-        staggeredLayout.cellPadding = 5
+        staggeredLayout.cellPadding = 3
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -66,7 +66,10 @@ class WallViewController: UIViewController {
         registerForForceTouch()
     }
     
+    // MARK: - View Configuration
+    
     fileprivate func configureView() {
+        self.view.backgroundColor = .white
         configureTableView()
         
         let backItem = UIBarButtonItem() 
@@ -82,8 +85,8 @@ class WallViewController: UIViewController {
         
         self.view.addSubview(wallCollectionView)
         constrain(self.view, wallCollectionView) { v, collection in
-            collection.left == v.left
-            collection.right == v.right
+            collection.left == v.left + 3
+            collection.right == v.right - 3
             collection.top == v.top
             collection.bottom == v.bottom
         }
@@ -138,30 +141,40 @@ class WallViewController: UIViewController {
             registerForPreviewing(with: self, sourceView: wallCollectionView)
         }
     }
-}
-
-// MARK: - CollectionView Delegate and DataSource
-extension WallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let reachTarget = Int(self.view.frame.height * 0.10) * -1
-        let contentScrollY = Int(scrollView.contentOffset.y)
-        if contentScrollY == reachTarget {
+    // MARK: - PullToReach Configuration
+    
+    private func configureSimpleTemporaryPullToReach(scrolledOffsetY: CGFloat) {
+        let height = self.view.frame.height * -1
+        let firstTreshold = (Int(height * 0.10), Int(height * 0.15))
+        let secondTreshold = (Int(height * 0.15), Int(height * 0.20))
+        let contentScrollY = Int(scrolledOffsetY)
+        
+        if contentScrollY == firstTreshold.0 {
             AudioServicesPlaySystemSound(SystemSoundID(1519))
             UIView.animate(withDuration: 0.1) { [weak self] in
                 self?.userImageView.transform =   CGAffineTransform(scaleX: 1.3, y: 1.3)
             }
-        } else if Int(reachTarget * 2) ==  contentScrollY {
+        } else if contentScrollY == secondTreshold.0 || contentScrollY == secondTreshold.1 {
             AudioServicesPlaySystemSound(SystemSoundID(1520))
             UIView.animate(withDuration: 0.1) { [weak self] in
                 self?.userImageView.transform =   CGAffineTransform(scaleX: 1.5, y: 1.5)
             }
-        } else if contentScrollY > reachTarget {
+        } else if contentScrollY > firstTreshold.0 {
             UIView.animate(withDuration: 0.1) { [weak self] in
                 self?.userImageView.transform =   CGAffineTransform(scaleX: 1, y: 1)
             }
         }
+    }
+}
+
+// MARK: - CollectionView Delegate and DataSource
+
+extension WallViewController: UICollectionViewDelegate, UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       configureSimpleTemporaryPullToReach(scrolledOffsetY: scrollView.contentOffset.y)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
