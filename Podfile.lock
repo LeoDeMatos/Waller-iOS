@@ -23,6 +23,7 @@ PODS:
   - NVActivityIndicatorView (4.6.1):
     - NVActivityIndicatorView/Presenter (= 4.6.1)
   - NVActivityIndicatorView/Presenter (4.6.1)
+  - Pulley (2.6.2)
   - Result (4.1.0)
   - RxAtomic (4.4.1)
   - RxCocoa (4.4.1):
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - Moya-ModelMapper/RxSwift
   - Moya/RxSwift
   - NVActivityIndicatorView
+  - Pulley
   - RxCocoa
   - SwiftLint
 
@@ -49,6 +51,7 @@ SPEC REPOS:
     - Moya
     - Moya-ModelMapper
     - NVActivityIndicatorView
+    - Pulley
     - Result
     - RxAtomic
     - RxCocoa
@@ -63,12 +66,13 @@ SPEC CHECKSUMS:
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Moya-ModelMapper: 9032a62301f6489405d56b7bb4e1f54944638fe3
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
+  Pulley: 2679a2b5a9714c5eb760b1fbb535d15c60e50fb4
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
 
-PODFILE CHECKSUM: 49a078ac6ff3d9cf4a16af069eac9768fde3efa0
+PODFILE CHECKSUM: d97c7450f4b4420904f2706470f51f42c7999f6b
 
 COCOAPODS: 1.5.0

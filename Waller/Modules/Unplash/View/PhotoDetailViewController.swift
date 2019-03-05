@@ -9,19 +9,10 @@
 import UIKit
 import Kingfisher
 import Cartography
+import Pulley
 
 class PhotoDetailViewController: UIViewController {
-    
-    // MARK: - Constructors
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     // MARK: Views
 
     private lazy var imageView: UIImageView = {

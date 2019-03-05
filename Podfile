@@ -12,6 +12,7 @@ target 'Waller' do
     pod 'Kingfisher', '~> 5.1.0'
     pod 'SwiftLint'
     pod 'Cartography', '~> 3.0'
+    pod 'Pulley'
 
   # Pods for Waller
 

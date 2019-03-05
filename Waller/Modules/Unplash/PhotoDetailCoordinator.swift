@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import UIKit
+import Pulley
 
 class PhotoDetailCoordinator: Coordinator {
     
@@ -29,7 +30,29 @@ class PhotoDetailCoordinator: Coordinator {
         let photoDataManager = PhotoDataManager(unplashService: provider)
         let viewModel = PhotoDetailViewModel(dataManager: photoDataManager, photo: photo)
         photoDetailViewController.viewModel = viewModel
-        navigationController.pushViewController(photoDetailViewController, animated: true)
+        
+        let targetViewController: UIViewController
+        
+        if let user = photo.user {
+            let overlayViewController = UserOverlayViewController()
+            let overlayViewModel = UserOverlayViewModel(dataManager: photoDataManager, user: user)
+            overlayViewController.viewModel = overlayViewModel
+        
+            let pulleyViewController = PulleyViewController(contentViewController: photoDetailViewController,
+                                                            drawerViewController: overlayViewController)
+            
+            targetViewController = pulleyViewController
+        } else {
+            targetViewController = photoDetailViewController
+        }
+        
+        if photo.likes == 0 {
+            targetViewController.navigationItem.title = "\(photo.likes) Likes 🥶"
+        } else {
+            targetViewController.navigationItem.title = "\(photo.likes) Likes 😍"
+        }
+        
+        navigationController.pushViewController(targetViewController, animated: true)
     }
     
     func getPreviewViewController() -> UIViewController {
@@ -39,4 +62,7 @@ class PhotoDetailCoordinator: Coordinator {
         photoDetailViewController.viewModel = viewModel
         return photoDetailViewController
     }
+    
+    // MARK: - Pulley Configuration
+
 }

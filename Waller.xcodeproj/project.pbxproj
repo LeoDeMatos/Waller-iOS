@@ -24,6 +24,8 @@
 		A7736A7F222E102100FF97C5 /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A7E222E102100FF97C5 /* WallCoordinator.swift */; };
 		A7736A81222E138700FF97C5 /* PhotoDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A80222E138700FF97C5 /* PhotoDetailCoordinator.swift */; };
 		A7736A83222E17C400FF97C5 /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */; };
+		A7736A85222E236300FF97C5 /* UserOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A84222E236200FF97C5 /* UserOverlayViewController.swift */; };
+		A7736A87222E352D00FF97C5 /* UserOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A86222E352D00FF97C5 /* UserOverlayViewModel.swift */; };
 		A7B1CD08201FDCFB00539F81 /* UIColor+WallerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */; };
 		A7B8E63020FA66B200F0418F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E62F20FA66B200F0418F /* Coordinator.swift */; };
 		A7B8E63220FA66F600F0418F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E63120FA66F600F0418F /* ApplicationCoordinator.swift */; };
@@ -88,6 +90,8 @@
 		A7736A7E222E102100FF97C5 /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
 		A7736A80222E138700FF97C5 /* PhotoDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailCoordinator.swift; sourceTree = "<group>"; };
 		A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
+		A7736A84222E236200FF97C5 /* UserOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOverlayViewController.swift; sourceTree = "<group>"; };
+		A7736A86222E352D00FF97C5 /* UserOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOverlayViewModel.swift; sourceTree = "<group>"; };
 		A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+WallerColors.swift"; sourceTree = "<group>"; };
 		A7B8E62F20FA66B200F0418F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		A7B8E63120FA66F600F0418F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 			children = (
 				C55BD23F1EE425290054C59F /* WallViewModel.swift */,
 				A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */,
+				A7736A86222E352D00FF97C5 /* UserOverlayViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				A758F1A8222C327800D1072C /* Cell */,
+				A7736A84222E236200FF97C5 /* UserOverlayViewController.swift */,
 				C530D26D1EE2FFCD007E64A3 /* PhotoDetailViewController.swift */,
 				C5C8EA501EC3CBB800350046 /* WallViewController.swift */,
 			);
@@ -579,6 +585,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-ModelMapper/Moya_ModelMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Pulley/Pulley.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -593,6 +600,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya_ModelMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pulley.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -648,10 +656,12 @@
 			files = (
 				C5C8EA861EC3D2D400350046 /* Photo.swift in Sources */,
 				A7736A81222E138700FF97C5 /* PhotoDetailCoordinator.swift in Sources */,
+				A7736A87222E352D00FF97C5 /* UserOverlayViewModel.swift in Sources */,
 				C5C8EA801EC3CC1600350046 /* WallCollectionViewCell.swift in Sources */,
 				C5160EA61EF89DEB0000AEEB /* BaseViewController.swift in Sources */,
 				C5C87E4B1EF32FE200E5825B /* Shot.swift in Sources */,
 				A7656B752039DAAF00870082 /* UITableView+Identfier+Nib.swift in Sources */,
+				A7736A85222E236300FF97C5 /* UserOverlayViewController.swift in Sources */,
 				C55BD2401EE425290054C59F /* WallViewModel.swift in Sources */,
 				A7736A7D222E037300FF97C5 /* JSONProvider.swift in Sources */,
 				C5C87E491EF3209A00E5825B /* DribbbleService.swift in Sources */,

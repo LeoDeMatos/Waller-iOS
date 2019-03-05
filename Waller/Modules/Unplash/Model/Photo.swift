@@ -14,12 +14,14 @@ struct Photo: Mappable {
     let user: User?
     let height: Int
     let width: Int
+    let likes: Int
     
     init(map: Mapper) throws {
         try urls = map.from("urls")
         user = map.optionalFrom("user")
         try width = map.from("width")
         try height = map.from("height")
+        try likes = map.from("likes")
     }
 }
 
