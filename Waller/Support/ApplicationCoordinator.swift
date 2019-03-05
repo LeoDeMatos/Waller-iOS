@@ -18,6 +18,8 @@ class ApplicationCoordinator: Coordinator {
     let rootViewController: UINavigationController
     let unplashService = MoyaProvider<UnplashService>(endpointClosure: endpointClosure)
     
+    private let wallCoordinator: WallCoordinator!
+    
     init(window: UIWindow) {
         self.window = window
         
@@ -34,19 +36,14 @@ class ApplicationCoordinator: Coordinator {
         
         window.layer.cornerRadius = 5
         window.layer.masksToBounds = true
+        
+        wallCoordinator = WallCoordinator(navigationController: rootViewController,
+                                                          provider: unplashService)
     }
     
     func start() {
         self.window.rootViewController = rootViewController
         self.window.makeKeyAndVisible()
-        showWallViewController()
-    }
-    
-    private func showWallViewController() {
-        let wallViewController = WallViewController()
-        let dataManager = PhotoDataManager(unplashService: unplashService)
-        let viewModel = WallViewModel(dataManager: dataManager)
-        wallViewController.viewModel = viewModel
-        rootViewController.pushViewController(wallViewController, animated: false)
+        wallCoordinator.start()
     }
 }

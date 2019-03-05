@@ -17,7 +17,13 @@
 		A758F1AC222C33AF00D1072C /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A758F1AB222C33AF00D1072C /* Result.swift */; };
 		A7656B752039DAAF00870082 /* UITableView+Identfier+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7656B742039DAAF00870082 /* UITableView+Identfier+Nib.swift */; };
 		A7736A71222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */; };
-		A7A1D07021438D6700436BDB /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1D06F21438D6700436BDB /* WallCoordinator.swift */; };
+		A7736A74222DF7FA00FF97C5 /* WallPhotosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A73222DF7FA00FF97C5 /* WallPhotosTests.swift */; };
+		A7736A76222DF88E00FF97C5 /* Paginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A75222DF88E00FF97C5 /* Paginator.swift */; };
+		A7736A7B222E032300FF97C5 /* photo_array.json in Resources */ = {isa = PBXBuildFile; fileRef = A7736A7A222E032300FF97C5 /* photo_array.json */; };
+		A7736A7D222E037300FF97C5 /* JSONProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A7C222E037300FF97C5 /* JSONProvider.swift */; };
+		A7736A7F222E102100FF97C5 /* WallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A7E222E102100FF97C5 /* WallCoordinator.swift */; };
+		A7736A81222E138700FF97C5 /* PhotoDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A80222E138700FF97C5 /* PhotoDetailCoordinator.swift */; };
+		A7736A83222E17C400FF97C5 /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */; };
 		A7B1CD08201FDCFB00539F81 /* UIColor+WallerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */; };
 		A7B8E63020FA66B200F0418F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E62F20FA66B200F0418F /* Coordinator.swift */; };
 		A7B8E63220FA66F600F0418F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E63120FA66F600F0418F /* ApplicationCoordinator.swift */; };
@@ -33,7 +39,6 @@
 		C5C8EA511EC3CBB800350046 /* WallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8EA501EC3CBB800350046 /* WallViewController.swift */; };
 		C5C8EA561EC3CBB800350046 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5C8EA551EC3CBB800350046 /* Assets.xcassets */; };
 		C5C8EA591EC3CBB800350046 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5C8EA571EC3CBB800350046 /* LaunchScreen.storyboard */; };
-		C5C8EA641EC3CBB800350046 /* WallerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8EA631EC3CBB800350046 /* WallerTests.swift */; };
 		C5C8EA6F1EC3CBB800350046 /* WallerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8EA6E1EC3CBB800350046 /* WallerUITests.swift */; };
 		C5C8EA801EC3CC1600350046 /* WallCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8EA7E1EC3CC1600350046 /* WallCollectionViewCell.swift */; };
 		C5C8EA811EC3CC1600350046 /* WallCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C8EA7F1EC3CC1600350046 /* WallCollectionViewCell.xib */; };
@@ -76,7 +81,13 @@
 		A758F1AB222C33AF00D1072C /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A7656B742039DAAF00870082 /* UITableView+Identfier+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Identfier+Nib.swift"; sourceTree = "<group>"; };
 		A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewPullToReachController.swift; sourceTree = "<group>"; };
-		A7A1D06F21438D6700436BDB /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
+		A7736A73222DF7FA00FF97C5 /* WallPhotosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallPhotosTests.swift; sourceTree = "<group>"; };
+		A7736A75222DF88E00FF97C5 /* Paginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paginator.swift; sourceTree = "<group>"; };
+		A7736A7A222E032300FF97C5 /* photo_array.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = photo_array.json; sourceTree = "<group>"; };
+		A7736A7C222E037300FF97C5 /* JSONProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONProvider.swift; sourceTree = "<group>"; };
+		A7736A7E222E102100FF97C5 /* WallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCoordinator.swift; sourceTree = "<group>"; };
+		A7736A80222E138700FF97C5 /* PhotoDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailCoordinator.swift; sourceTree = "<group>"; };
+		A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
 		A7B1CD07201FDCFB00539F81 /* UIColor+WallerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+WallerColors.swift"; sourceTree = "<group>"; };
 		A7B8E62F20FA66B200F0418F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		A7B8E63120FA66F600F0418F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
@@ -95,7 +106,6 @@
 		C5C8EA581EC3CBB800350046 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C5C8EA5A1EC3CBB800350046 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5C8EA5F1EC3CBB800350046 /* WallerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5C8EA631EC3CBB800350046 /* WallerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallerTests.swift; sourceTree = "<group>"; };
 		C5C8EA651EC3CBB800350046 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5C8EA6A1EC3CBB800350046 /* WallerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C8EA6E1EC3CBB800350046 /* WallerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallerUITests.swift; sourceTree = "<group>"; };
@@ -170,6 +180,7 @@
 				A758F1A9222C334A00D1072C /* BasaDataManager.swift */,
 				A758F1AB222C33AF00D1072C /* Result.swift */,
 				A7736A70222DCD0B00FF97C5 /* ScrollViewPullToReachController.swift */,
+				A7736A75222DF88E00FF97C5 /* Paginator.swift */,
 			);
 			path = ProjectWide;
 			sourceTree = "<group>";
@@ -230,10 +241,11 @@
 		A758F1A1222C306400D1072C /* Unplash */ = {
 			isa = PBXGroup;
 			children = (
-				A7A1D06F21438D6700436BDB /* WallCoordinator.swift */,
 				A758F1A5222C316000D1072C /* Model */,
 				A758F1A4222C30E600D1072C /* View */,
 				A758F1A2222C307800D1072C /* ViewModel */,
+				A7736A7E222E102100FF97C5 /* WallCoordinator.swift */,
+				A7736A80222E138700FF97C5 /* PhotoDetailCoordinator.swift */,
 			);
 			path = Unplash;
 			sourceTree = "<group>";
@@ -242,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				C55BD23F1EE425290054C59F /* WallViewModel.swift */,
+				A7736A82222E17C400FF97C5 /* PhotoDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -293,9 +306,26 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		A7736A72222DF7D000FF97C5 /* Cases */ = {
+			isa = PBXGroup;
+			children = (
+				A7736A73222DF7FA00FF97C5 /* WallPhotosTests.swift */,
+			);
+			path = Cases;
+			sourceTree = "<group>";
+		};
+		A7736A77222E00A800FF97C5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A7736A7C222E037300FF97C5 /* JSONProvider.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		A7B8E62E20FA668D00F0418F /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				A7736A77222E00A800FF97C5 /* Data */,
 				A7B8E62F20FA66B200F0418F /* Coordinator.swift */,
 				A7B8E63120FA66F600F0418F /* ApplicationCoordinator.swift */,
 			);
@@ -338,6 +368,7 @@
 				C5C8EA571EC3CBB800350046 /* LaunchScreen.storyboard */,
 				C5C8EA5A1EC3CBB800350046 /* Info.plist */,
 				A745F31920E1C7AD0057E12A /* BaseViewModel.swift */,
+				A7736A7A222E032300FF97C5 /* photo_array.json */,
 			);
 			path = Waller;
 			sourceTree = "<group>";
@@ -345,7 +376,7 @@
 		C5C8EA621EC3CBB800350046 /* WallerTests */ = {
 			isa = PBXGroup;
 			children = (
-				C5C8EA631EC3CBB800350046 /* WallerTests.swift */,
+				A7736A72222DF7D000FF97C5 /* Cases */,
 				C5C8EA651EC3CBB800350046 /* Info.plist */,
 			);
 			path = WallerTests;
@@ -482,6 +513,7 @@
 				C5C8EA591EC3CBB800350046 /* LaunchScreen.storyboard in Resources */,
 				C5C8EA561EC3CBB800350046 /* Assets.xcassets in Resources */,
 				C5C8EA811EC3CC1600350046 /* WallCollectionViewCell.xib in Resources */,
+				A7736A7B222E032300FF97C5 /* photo_array.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,11 +647,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5C8EA861EC3D2D400350046 /* Photo.swift in Sources */,
+				A7736A81222E138700FF97C5 /* PhotoDetailCoordinator.swift in Sources */,
 				C5C8EA801EC3CC1600350046 /* WallCollectionViewCell.swift in Sources */,
 				C5160EA61EF89DEB0000AEEB /* BaseViewController.swift in Sources */,
 				C5C87E4B1EF32FE200E5825B /* Shot.swift in Sources */,
 				A7656B752039DAAF00870082 /* UITableView+Identfier+Nib.swift in Sources */,
 				C55BD2401EE425290054C59F /* WallViewModel.swift in Sources */,
+				A7736A7D222E037300FF97C5 /* JSONProvider.swift in Sources */,
 				C5C87E491EF3209A00E5825B /* DribbbleService.swift in Sources */,
 				C5C8EA511EC3CBB800350046 /* WallViewController.swift in Sources */,
 				A745F31A20E1C7AD0057E12A /* BaseViewModel.swift in Sources */,
@@ -631,13 +665,15 @@
 				A758F1AC222C33AF00D1072C /* Result.swift in Sources */,
 				A752A37D2079B15800F4929C /* User.swift in Sources */,
 				A7B1CD08201FDCFB00539F81 /* UIColor+WallerColors.swift in Sources */,
-				A7A1D07021438D6700436BDB /* WallCoordinator.swift in Sources */,
 				C58A80B71ED9029A00F29993 /* UnplashService.swift in Sources */,
 				A758F1AA222C334A00D1072C /* BasaDataManager.swift in Sources */,
+				A7736A76222DF88E00FF97C5 /* Paginator.swift in Sources */,
 				A7B8E63020FA66B200F0418F /* Coordinator.swift in Sources */,
 				A71DB4052210CE080053B4E4 /* StaggeredCollectionViewLayout.swift in Sources */,
+				A7736A83222E17C400FF97C5 /* PhotoDetailViewModel.swift in Sources */,
 				C58A80B91ED908EB00F29993 /* PhotoDataManager.swift in Sources */,
 				C5F8F5071F1C1E3C000692D8 /* String+HTML.swift in Sources */,
+				A7736A7F222E102100FF97C5 /* WallCoordinator.swift in Sources */,
 				C5F4E6C71EF5A0D40076D7CA /* UIImageView+Utils.swift in Sources */,
 				C5C8EA4F1EC3CBB800350046 /* AppDelegate.swift in Sources */,
 			);
@@ -647,7 +683,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5C8EA641EC3CBB800350046 /* WallerTests.swift in Sources */,
+				A7736A74222DF7FA00FF97C5 /* WallPhotosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,11 +870,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 67U26DS86X;
 				INFOPLIST_FILE = WallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = leonardo.matos.WallerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waller.app/Waller";
 			};
@@ -850,6 +888,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 67U26DS86X;
 				INFOPLIST_FILE = WallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

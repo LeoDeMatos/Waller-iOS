@@ -16,6 +16,6 @@ import Moya_ModelMapper
 class UserDataManager: BaseDataManager<UnplashService> {
     
     func profile(userName: String) -> Driver<Result<User>> {
-        return call(apiCall: .Profile(userName: userName))
+        return call(apiCall: .profile(userName: userName))
     }
 }

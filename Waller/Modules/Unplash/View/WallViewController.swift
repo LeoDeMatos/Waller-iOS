@@ -51,7 +51,9 @@ class WallViewController: UIViewController {
     // MARK: - Declaration
     
     private let disposeBag = DisposeBag()
+    
     var viewModel: WallViewModel!
+    weak var wallCoordinatorDelegate: WallCoordinatorDelegate?
     
     // MARK: - View Lifecicle
     
@@ -64,6 +66,7 @@ class WallViewController: UIViewController {
         configureView()
         configureViewModel()
         registerForForceTouch()
+    
     }
     
     // MARK: - View Configuration
@@ -217,9 +220,8 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = PhotoDetailViewController()
-        viewController.wallerPost = viewModel.wallerPostForIndexPath(indexPath: indexPath)
-        self.navigationController?.pushViewController(viewController, animated: true)
+        guard let photo = viewModel.wallerPostForIndexPath(indexPath: indexPath) else { return }
+        wallCoordinatorDelegate?.didSelectPhoto(photo: photo)
     }
 }
 
@@ -229,7 +231,7 @@ extension WallViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
                            commit viewControllerToCommit: UIViewController) {
-        self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
+        wallCoordinatorDelegate?.didCommitViewController()
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
@@ -238,16 +240,14 @@ extension WallViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = wallCollectionView.indexPathForItem(at: location),
         let cell = wallCollectionView.cellForItem(at: indexPath) else { return nil }
         
-                let previewViewController = PhotoDetailViewController()
+        guard let photo = self.viewModel.wallerPostForIndexPath(indexPath: indexPath) else { return nil }
+        let previewViewController = wallCoordinatorDelegate?.getPreviewPhotoDetailViewController(photo: photo)
+        let height = self.view.frame.height * 0.75
+        previewViewController?.preferredContentSize = CGSize(width: 0, height: height)
         
-                previewViewController.wallerPost = self.viewModel.wallerPostForIndexPath(indexPath: indexPath)
-        
-                let height = self.view.frame.height * 0.75
-                previewViewController.preferredContentSize = CGSize(width: 0, height: height)
-        
-                if let cell = cell as? WallCollectionViewCell {
-                    previewingContext.sourceRect = cell.frame
-                }
+        if let cell = cell as? WallCollectionViewCell {
+            previewingContext.sourceRect = cell.frame
+        }
     
         return previewViewController
     }

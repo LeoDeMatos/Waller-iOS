@@ -68,7 +68,7 @@ class PhotoDetailViewController: UIViewController {
     }()
     
     // MARK: - Declarations
-    var wallerPost: Photo?
+    var viewModel: PhotoDetailViewModel!
     
     // MARK: - View Lifecycle
 
@@ -117,8 +117,7 @@ class PhotoDetailViewController: UIViewController {
     // MARK: - View binding
     
     private func bindView() {
-        guard let urls = wallerPost?.urls else { return }
-        
+        let urls = viewModel.photo.urls
         imageView.lazyHighLoad(urls: urls)
         backgroundBlurredImageView.lazyHighLoad(urls: urls)
         
