@@ -34,10 +34,4 @@ class WallerUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
-    func testMainWallViewModel() {
-        let viewModel = WallViewModel()
-        viewModel.fetechPhotos()
-        
-    }
-    
 }

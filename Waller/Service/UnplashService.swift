@@ -13,8 +13,8 @@ let BASE_URL = "https://api.unsplash.com/"
 let CLIENT_ID = "82acb689fad50cfcaa115b2d531f8f355480c8711b827edc09c59e658b8bb38d"
 
 public enum UnplashService {
-    case Photos(page: Int, perPage: Int)
-    case Profile(userName: String)
+    case photos(page: Int, perPage: Int)
+    case profile(userName: String)
 }
 
 extension UnplashService: TargetType {
@@ -23,24 +23,24 @@ extension UnplashService: TargetType {
     
     public var path: String {
         switch self {
-        case .Photos:
+        case .photos:
             return "photos"
             
-        case .Profile(let userName):
+        case .profile(let userName):
             return "users/\(userName)"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Photos, .Profile:
+        case .photos, .profile:
             return .get
         }
     }
     public var parameters: [String: Any] {
         switch self {
-        case .Photos(let page, let perPage):
+        case .photos(let page, let perPage):
             return ["page": page, "per_page": perPage]
-        case .Profile:
+        case .profile:
             return [:]
         }
     }
@@ -50,15 +50,18 @@ extension UnplashService: TargetType {
     
     public var task: Task {
         switch self {
-        case .Photos, .Profile:
+        case .photos, .profile:
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
     
     public var sampleData: Data {
         switch self {
-        case .Photos, .Profile:
-            return "{\"msg\":\"OK\"}}".data(using: String.Encoding.utf8)!
+        case .photos:
+            return JSONProvider.provideJsonFor(path: "photo_array").data(using: .utf8)!
+            
+        case .profile:
+            return JSONProvider.provideJsonFor(path: "profile").data(using: .utf8)!
         }
     }
     
@@ -66,6 +69,7 @@ extension UnplashService: TargetType {
         return ["Authorization": "Client-ID \(CLIENT_ID)", "X-Per-Page": "30"]
     }
 }
+
 let endpointClosure = { (target: UnplashService) -> Endpoint in
     switch target {
     default:
