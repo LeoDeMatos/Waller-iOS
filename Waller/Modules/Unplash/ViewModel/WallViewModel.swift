@@ -26,13 +26,24 @@ class WallViewModel {
 
     let state = BehaviorRelay<ViewModelViewState>(value: .loading)
     
-    func fetechPhotos() {
+    func fetechPhotos(query: String = "") {
         state.accept(.loading)
         
-        photoDataManager.fetchPhotos(page: self.currentPage)
-            .drive(onNext: { (_) in
+        let driver: Driver<Bool>
+        
+        if query.isEmpty {
+            driver = photoDataManager.fetchPhotos(page: self.currentPage)
+        } else {
+            driver = photoDataManager.fetchPhotos(query: query, page: self.currentPage)
+        }
+        
+        driver.drive(onNext: { (result) in
+            if result {
                 self.state.accept(.newPage)
-            }).disposed(by: disposeBag)
+            } else {
+                print("Some Some Error")
+            }
+        }).disposed(by: disposeBag)
     }
     
     func presentNextPage() {

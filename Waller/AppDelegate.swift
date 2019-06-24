@@ -17,13 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        configureCoordinator()
+        let testing = CommandLine.arguments.contains("--uitesting")
+    
+        configureCoordinator(for: testing)
         applicationCoordinator?.start()
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-    
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -40,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Coordinator Configuration
     
-    private func configureCoordinator() {
+    private func configureCoordinator(for testing: Bool) {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        applicationCoordinator = ApplicationCoordinator(window: window)
+        applicationCoordinator = ApplicationCoordinator(window: window, testing: testing)
         self.window = window
     }
 }

@@ -27,12 +27,11 @@ class WallViewController: UIViewController {
 
     // MARK: - Views
     
-    private lazy var userImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
-        imageView.backgroundColor = .red
-        imageView.layer.masksToBounds = true
-        return imageView
+    private lazy var settingButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "icon-cog")
+        button.setImage(image, for: .normal)
+        return button
     }()
     
     private lazy var wallCollectionView: UICollectionView = {
@@ -44,8 +43,21 @@ class WallViewController: UIViewController {
         flowLayout.scrollDirection = .vertical
         let collectionView = UICollectionView.init(frame: CGRect.zero,
                                                    collectionViewLayout: staggeredLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .green
         return collectionView
+    }()
+    
+    // MARK: - Search Controller
+    
+    private lazy var searchContoller: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.searchResultsUpdater = self
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.searchBar.placeholder = "Find inspiration"
+        controller.definesPresentationContext = true
+        controller.searchBar.tintColor = .roseRed
+    
+        return controller
     }()
     
     // MARK: - Declaration
@@ -58,38 +70,79 @@ class WallViewController: UIViewController {
     // MARK: - View Lifecicle
     
     override func viewWillAppear(_ animated: Bool) {
-        removeShadowImage(under: navigationController?.navigationBar)
+//        navigationController?.navi
+        
+    }
+    
+    struct Joke: Decodable {
+        let value: String
+        let url: String
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.accessibilityIdentifier = String(describing: WallViewController.self)
+        
+        view.backgroundColor = .red
+        
         configureView()
         configureViewModel()
         registerForForceTouch()
+    }
     
+    private func getRandomJoke() {
+        guard let url = URL(string: "https://api.chucknorris.io/jokes/random") else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] (data, _, error) in
+            if error != nil { return }
+            
+            guard let safeData = data else { return }
+            
+            var joke: Joke?
+            
+            do {
+                let decoder = JSONDecoder()
+                joke = try decoder.decode(Joke.self, from: safeData)
+            } catch {
+                print(error)
+            }
+            
+            DispatchQueue.main.async {
+                let alert = UIAlertController.init(title: "New Chuck Joke",
+                                                   message: joke?.value,
+                                                   preferredStyle: .alert)
+                let action = UIAlertAction.init(title: "OK", style: .destructive, handler: { (_) in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                
+                alert.addAction(action)
+                
+                self?.present(alert, animated: true, completion: nil)
+            }
+            }.resume()
     }
     
     // MARK: - View Configuration
     
     fileprivate func configureView() {
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         configureTableView()
+        configureSearchBar()
+        removeShadowImage(under: navigationController?.navigationBar)
         
         let backItem = UIBarButtonItem() 
         backItem.title = ""
-        self.navigationItem.backBarButtonItem = backItem
-        self.navigationItem.title = "Waller"
-        
-        configureUserView()
+        navigationItem.backBarButtonItem = backItem
+        navigationItem.title = "Waller"
+    
     }
     
     private func configureTableView() {
-        self.automaticallyAdjustsScrollViewInsets = true
+        automaticallyAdjustsScrollViewInsets = true
         
-        self.view.addSubview(wallCollectionView)
+        view.addSubview(wallCollectionView)
         constrain(self.view, wallCollectionView) { v, collection in
-            collection.left == v.left + 3
-            collection.right == v.right - 3
+            collection.left == v.left + 6
+            collection.right == v.right
             collection.top == v.top
             collection.bottom == v.bottom
         }
@@ -97,22 +150,30 @@ class WallViewController: UIViewController {
         wallCollectionView.showsVerticalScrollIndicator = false
         wallCollectionView.register(WallCollectionViewCell.nib,
                                     forCellWithReuseIdentifier: WallCollectionViewCell.identifier)
-        wallCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        wallCollectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         wallCollectionView.delegate = self
         wallCollectionView.dataSource = self
     }
     
-    private func configureUserView() {
+    private func configureSettingButton() {
         guard let navBar = self.navigationController?.navigationBar else { return }
-        navBar.addSubview(userImageView)
-        constrain(navBar, userImageView) {nb, img in
+        navBar.addSubview(settingButton)
+        constrain(navBar, settingButton) {nb, img in
             img.right == nb.right - 16
-            img.bottom == nb.bottom - 10
-            img.height == 40
-            img.width == 40
+            img.bottom == nb.bottom - 16
+            img.height == 30
+            img.width == 30
         }
-        
-        userImageView.load(url: "https://yt3.ggpht.com/-JhG7CFvSUGo/AAAAAAAAAAI/AAAAAAAAAAA/lFU2rOckxfU/s108-c-k-no-mo-rj-c0xffffff/photo.jpg")
+    }
+    
+    // MARK: - Configure Search
+    
+    private func configureSearchBar() {
+        if #available(iOS 11, *) {
+            self.navigationItem.searchController = searchContoller
+        } else {
+            // TODO: Fall back
+        }
     }
     
     // MARK: - ViewModel Bindings
@@ -156,16 +217,16 @@ class WallViewController: UIViewController {
         if contentScrollY == firstTreshold.0 {
             AudioServicesPlaySystemSound(SystemSoundID(1519))
             UIView.animate(withDuration: 0.1) { [weak self] in
-                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.3, y: 1.3)
+                self?.settingButton.transform =   CGAffineTransform(scaleX: 1.3, y: 1.3)
             }
         } else if contentScrollY == secondTreshold.0 || contentScrollY == secondTreshold.1 {
             AudioServicesPlaySystemSound(SystemSoundID(1520))
             UIView.animate(withDuration: 0.1) { [weak self] in
-                self?.userImageView.transform =   CGAffineTransform(scaleX: 1.5, y: 1.5)
+                self?.settingButton.transform =   CGAffineTransform(scaleX: 1.5, y: 1.5)
             }
         } else if contentScrollY > firstTreshold.0 {
             UIView.animate(withDuration: 0.1) { [weak self] in
-                self?.userImageView.transform =   CGAffineTransform(scaleX: 1, y: 1)
+                self?.settingButton.transform =   CGAffineTransform(scaleX: 1, y: 1)
             }
         }
     }
@@ -261,5 +322,37 @@ extension WallViewController: StaggeredCollectionViewLayoutDelegate {
             .wallerPostForIndexPath(indexPath: indexPath) else { return 0.0 }
         let actualHeight: CGFloat = CGFloat(item.height) * 0.05
         return CGFloat(actualHeight)
+    }
+}
+
+// MARK: - Search Controller
+
+extension WallViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let query = searchController.searchBar.text else { return }
+        viewModel.fetechPhotos(query: query)
+    }
+}
+
+import SwiftUI
+import Moya
+
+struct WallIntegration: UIViewControllerRepresentable {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<WallIntegration>) -> WallViewController {
+        let wallViewController = WallViewController()
+        let dataManager = PhotoDataManager(unplashService: MoyaProvider<UnplashService>(endpointClosure: endpointClosure))
+        let viewModel = WallViewModel(dataManager: dataManager)
+        wallViewController.viewModel = viewModel
+        return wallViewController
+    }
+    
+    func updateUIViewController(_ uiViewController: WallViewController, context: UIViewControllerRepresentableContext<WallIntegration>) {
+        
+    }
+}
+
+struct WallPreview: PreviewProvider {
+    static var previews: WallIntegration {
+        return WallIntegration()
     }
 }

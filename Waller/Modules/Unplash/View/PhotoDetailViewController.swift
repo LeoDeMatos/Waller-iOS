@@ -13,6 +13,10 @@ import Pulley
 
 class PhotoDetailViewController: UIViewController {
 
+    deinit {
+        print("PhotoDetailViewController is being deinit")
+    }
+    
     // MARK: Views
 
     private lazy var imageView: UIImageView = {
@@ -56,6 +60,14 @@ class PhotoDetailViewController: UIViewController {
         indicator.style = .whiteLarge
         indicator.color = .black
         return indicator
+    }()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Close", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+        return button
     }()
     
     // MARK: - Declarations
@@ -103,6 +115,12 @@ class PhotoDetailViewController: UIViewController {
         constrain(contentView, visualEffectsView) { v, blurView in
             blurView.edges == v.edges
         }
+        
+        contentView.addSubview(closeButton)
+        constrain(contentView, closeButton) { (contentView, closeButton) in
+            closeButton.right == contentView.right - 20
+            closeButton.top == contentView.top + 20
+        }
     }
     
     // MARK: - View binding
@@ -115,5 +133,11 @@ class PhotoDetailViewController: UIViewController {
         UIView.animate(withDuration: 1) {
             self.visualEffectsView.alpha = 0
         }
+    }
+    
+    // MARK: - View Actions
+    
+    @objc func closeView() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

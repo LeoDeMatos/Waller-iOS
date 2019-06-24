@@ -17,18 +17,23 @@ class ApplicationCoordinator: Coordinator {
     let window: UIWindow
     let rootViewController: UINavigationController
     let unplashService = MoyaProvider<UnplashService>(endpointClosure: endpointClosure)
+    var stubbingProvider = MoyaProvider<UnplashService>(stubClosure: MoyaProvider.immediatelyStub)
     
     private let wallCoordinator: WallCoordinator!
     
-    init(window: UIWindow) {
+    init(window: UIWindow, testing: Bool) {
         self.window = window
         
         rootViewController = UINavigationController()
         
         let navigationBar = rootViewController.navigationBar
         navigationBar.isTranslucent = false
-        navigationBar.barTintColor = .white
-        navigationBar.tintColor = .black
+        
+        ThemeManager.shared.setNewThemeMode(mode: .light)
+        let currentMode = ThemeManager.shared.currentThemeMode
+        
+        navigationBar.barTintColor = currentMode == .light ? .white : .black
+        navigationBar.tintColor =  currentMode == .light ? .black : .white
     
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = true
@@ -37,8 +42,9 @@ class ApplicationCoordinator: Coordinator {
         window.layer.cornerRadius = 5
         window.layer.masksToBounds = true
         
+        let provider = testing ? stubbingProvider : unplashService
         wallCoordinator = WallCoordinator(navigationController: rootViewController,
-                                                          provider: unplashService)
+                                                          provider: provider)
     }
     
     func start() {

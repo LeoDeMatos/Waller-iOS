@@ -14,6 +14,7 @@ let CLIENT_ID = "82acb689fad50cfcaa115b2d531f8f355480c8711b827edc09c59e658b8bb38
 
 public enum UnplashService {
     case photos(page: Int, perPage: Int)
+    case searchPhotos(query: String, page: Int, perPage: Int)
     case profile(userName: String)
 }
 
@@ -28,11 +29,14 @@ extension UnplashService: TargetType {
             
         case .profile(let userName):
             return "users/\(userName)"
+    
+        case .searchPhotos:
+            return "search/photos"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .photos, .profile:
+        case .photos, .profile, .searchPhotos:
             return .get
         }
     }
@@ -40,8 +44,12 @@ extension UnplashService: TargetType {
         switch self {
         case .photos(let page, let perPage):
             return ["page": page, "per_page": perPage]
+    
         case .profile:
             return [:]
+            
+        case .searchPhotos(let query, let page, let perPage):
+            return ["query": query, "page": page, "per_page": perPage]
         }
     }
     public var parameterEncoding: ParameterEncoding {
@@ -50,14 +58,14 @@ extension UnplashService: TargetType {
     
     public var task: Task {
         switch self {
-        case .photos, .profile:
+        case .photos, .profile, .searchPhotos:
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
     
     public var sampleData: Data {
         switch self {
-        case .photos:
+        case .photos, .searchPhotos:
             return JSONProvider.provideJsonFor(path: "photo_array").data(using: .utf8)!
             
         case .profile:

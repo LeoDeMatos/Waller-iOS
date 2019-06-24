@@ -102,9 +102,10 @@ class UserOverlayViewController: UIViewController {
             imageView.width == 40
         }
         
+        let leftPercentage: CGFloat = self.view.frame.width * 0.1
         self.view.addSubview(likeButton)
         constrain(view, likeButton, userImageView) { v, button, imageView in
-            button.right == v.right - 30
+            button.right == v.right - leftPercentage
             button.top == imageView.top
             button.bottom == imageView.bottom
             button.height == 40

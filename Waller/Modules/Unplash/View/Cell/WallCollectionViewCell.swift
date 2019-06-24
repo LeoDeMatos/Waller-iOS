@@ -18,7 +18,6 @@ class WallCollectionViewCell: UICollectionViewCell {
         wallImage.layer.cornerRadius = 15
         wallImage.layer.masksToBounds = true
         backgroundColor = .clear
-        wallImage.backgroundColor = .cyan
         contentView.backgroundColor = .clear
     }
 
@@ -27,6 +26,6 @@ class WallCollectionViewCell: UICollectionViewCell {
     }
     
     func bindBackgrounColorFor(indexPath: IndexPath) {
-        contentView.backgroundColor = .clear//indexPath.row % 5 == 0 ? .white : UIColor.wlrGray
+        contentView.backgroundColor = .clear
     }
 }

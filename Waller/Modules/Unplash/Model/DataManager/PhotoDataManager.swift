@@ -31,6 +31,19 @@ class PhotoDataManager {
             }.asDriver(onErrorJustReturn: false).debug()
     }
     
+    func fetchPhotos(query: String, page: Int) -> Driver<Bool> {
+        return unplashService.rx.request(.searchPhotos(query: query, page: page, perPage: 30)).map { [weak self] response in
+            
+            do {
+                let result = try response.map(to: SearchResult.self)
+                self?.photos = result.results
+            } catch {
+                print(error)
+            }
+            return true
+            }.asDriver(onErrorJustReturn: false).debug()
+    }
+    
     func fetchNextPhotos(page: Int) -> Driver<[Photo]> {
         return unplashService.rx.request(.photos(page: page, perPage: 30)).map { response in
             let newPhotos = try response.map(to: [Photo].self)

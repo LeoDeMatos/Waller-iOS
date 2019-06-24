@@ -46,13 +46,9 @@ class PhotoDetailCoordinator: Coordinator {
             targetViewController = photoDetailViewController
         }
         
-        if photo.likes == 0 {
-            targetViewController.navigationItem.title = "\(photo.likes) Likes 🥶"
-        } else {
-            targetViewController.navigationItem.title = "\(photo.likes) Likes 😍"
-        }
+        targetViewController.navigationItem.title = "\(photo.likes) Likes \(photo.likes == 0 ? "🥶" : "😍")"
         
-        navigationController.pushViewController(targetViewController, animated: true)
+        navigationController.present(targetViewController, animated: true, completion: nil)
     }
     
     func getPreviewViewController() -> UIViewController {
