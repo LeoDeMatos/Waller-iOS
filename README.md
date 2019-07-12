@@ -9,7 +9,9 @@
 This is a newer version of a unborn version of Waller, so most of the code in here is one year old and will be rewritten using a newer version o Swift and alongside a redesign.
 
 ### Goals
-* Migrate Waller to MVVM-C.
+* Migrate Waller to Swift 5.
+* Refactor into Clean Swift.
+* Support iOS 13.
 * Create some cool desging.
 * Try all new iOS features and patterns.
 * Learn!
